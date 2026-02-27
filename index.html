@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Character Counter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <div class="title">CHAR<span id="titleAccent">COUNT</span></div>
+        <div class="subtitle">LIVE CHARACTER COUNTER</div>
+      </div>
+      <div class="circle-wrap" title="% used">
+        <svg width="52" height="52" id="progressRing">
+          <circle cx="26" cy="26" r="20" class="ring-bg"/>
+          <circle cx="26" cy="26" r="20" class="ring-fill" id="ringFill"/>
+        </svg>
+        <div class="ring-pct" id="ringPct">0%</div>
+      </div>
+    </div>
+
+    <!-- Textarea Box -->
+    <div class="textarea-box" id="textareaBox">
+      <textarea
+        id="mainInput"
+        placeholder="Start typing something amazing…"
+        rows="8"
+        oninput="handleInput()"
+      ></textarea>
+
+      <div class="stats-bar">
+        <div class="stats-left">
+          <div class="stat">
+            <div class="stat-val" id="charCount">0</div>
+            <div class="stat-lbl">chars</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="wordCount">0</div>
+            <div class="stat-lbl">words</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="lineCount">0</div>
+            <div class="stat-lbl">lines</div>
+          </div>
+        </div>
+        <div class="remaining-wrap">
+          <span class="remaining-val" id="remainingVal"></span>
+          <span class="remaining-lbl" id="remainingLbl"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status + Progress Bar -->
+    <div class="status-row">
+      <span class="status-msg" id="statusMsg"></span>
+      <div class="progress-track" id="progressTrack" style="display:none;">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Presets -->
+    <div class="section-label">PRESETS</div>
+    <div class="presets">
+      <button class="chip active" data-limit="280" onclick="applyPreset(this)">Tweet <span>280</span></button>
+      <button class="chip" data-limit="160" onclick="applyPreset(this)">SMS <span>160</span></button>
+      <button class="chip" data-limit="150" onclick="applyPreset(this)">Bio <span>150</span></button>
+      <button class="chip" data-limit="60"  onclick="applyPreset(this)">Headline <span>60</span></button>
+      <div class="custom-wrap">
+        <input type="number" id="customInput" placeholder="Custom" min="1"
+               onkeydown="if(event.key==='Enter') applyCustom()"/>
+        <button class="chip" onclick="applyCustom()">Set</button>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <button class="btn-save" id="saveBtn" onclick="saveSnapshot()">SAVE SNAPSHOT</button>
+      <button class="btn-clear" onclick="clearAll()">CLEAR</button>
+    </div>
+
+    <!-- Snapshots History -->
+    <div id="historySection" style="display:none;">
+      <div class="section-label" style="margin-top:24px;">SNAPSHOTS</div>
+      <div id="historyList"></div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
